@@ -1,1 +1,1 @@
-# This repository is created for swe-573 lecture by Afize ÖZCAN
+# This repository is created for the swe-573 lecture by Afize ÖZCAN
