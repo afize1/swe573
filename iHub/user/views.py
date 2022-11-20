@@ -61,14 +61,14 @@ def forgotPassword(request):
                     if answer==valid_answer:
                         return redirect('setPassword',username)
                     else:
-                        messages.info(request, f'answer is wrong')
+                        messages.info(request, f'Answer is wrong')
                 else:
-                    messages.info(request, f'security question is wrong')
+                    messages.info(request, f'Security question is wrong')
             else:
-                messages.info(request, f'account does not exit plz sign in')
+                messages.info(request, f'Account does not exit please sign in')
     else:
         form = UserChangePasswordForm()
-    return render(request, 'user/forgotPassword.html', {'form': form,'title':'reqister here'})
+    return render(request, 'user/forgotPassword.html', {'form': form,'title':'Change password'})
 
 def setPassword(request, username):
     if request.method == 'POST':
@@ -85,4 +85,4 @@ def setPassword(request, username):
             messages.success(request, f'Your password has not been changed!')
     else:
         form = ChangePasswordForm(request.user)
-    return render(request, 'user/setPassword.html', {'form': form,'title':'reqister here'})
+    return render(request, 'user/setPassword.html', {'form': form,'title':'Change password'})
