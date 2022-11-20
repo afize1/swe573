@@ -32,7 +32,6 @@ class UserChangePasswordForm(forms.Form):
         fields = ['username', 'security_question','answer']
         
 class ChangePasswordForm(SetPasswordForm):
-    username= forms.CharField(max_length=20)
     class Meta:
         model = User
-        fields = ['username', 'new_password1', 'new_password2']
+        fields = ['new_password1', 'new_password2']
