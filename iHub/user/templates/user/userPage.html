@@ -1,0 +1,72 @@
+{% extends "user/index.html" %}
+{% load crispy_forms_tags %}
+{% block start %}
+
+<!--User-->
+<br><br>
+
+<div class="text-right">
+    <button style="background: blue; font-size: 2rem; padding:0.5%; color: white" type="button" data-toggle="modal" data-target="#profileModal"><span class="glyphicon glyphicon-plus"></span></button>
+</div>
+
+<div class="container mx-auto">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-10 pb-4">
+            <hr>
+            <div class="card p-4">
+                <h4 class="card-title font-weight-bold text-center">Who is, {{ user.first_name|title }} {{ user.last_name|title }} ?</h4>
+                <h5 class="text-right">
+                    <button style="background: white; font-size: 2rem; padding:1%; color: black" class="btn btn-primary"> &nbsp;Followers</button>
+                </h5>
+                <h5 class="text-right">
+                    <button style="background: white; font-size: 2rem; padding:1%; color: black" class="btn btn-primary"> &nbsp;Following</button>
+                </h5>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-10 pb-4">
+            <hr>
+            <div class="row">
+                {% for p in shares_list %}
+                    {% if p.username == user.username %} 
+                        <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
+                            <div class="h-100">
+                                <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
+                                <div class="card-body">
+                                        <h5 class="card-title">{{ p.comment }}</h5>
+                                    <p class="card-text text-muted" style="font-size:12px">{{ p.value }}</p>
+                                    <a href="{{ p.username }}" class="btn btn-warning">Like</a>
+                                </div>
+                                </div>
+                        </div>
+                    {% endif %}
+              {% endfor %}
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-9 pb-4">
+        </div> 
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="profileModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">i-Hub</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ user_form|crispy }}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+{% endblock %}

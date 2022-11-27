@@ -14,3 +14,15 @@ class users(models.Model):
     answer = models.CharField(max_length=20)
     class Meta:
         db_table='db_users'
+
+class shares(models.Model):
+    username=models.CharField(max_length=20)
+    subject= models.CharField(max_length=20)
+    label = models.CharField(max_length=20)
+    private = models.CharField(max_length=20)
+    type = models.CharField(max_length=20)
+    related_subjects = models.CharField(max_length=20)
+    value=models.CharField(max_length=20)
+    comment = models.CharField(max_length=20)
+    class Meta:
+        db_table='db_shares'
