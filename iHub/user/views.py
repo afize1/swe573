@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserRegisterForm, UserChangePasswordForm, ChangePasswordForm, UserForm
-from .models import users, shares
+from .models import followUser, users, shares
 from django.contrib.auth.models import User   ##save details about user such as sequrity question
 from django.contrib.auth.hashers import make_password ##save password encrypted
 
@@ -98,3 +98,20 @@ def userPage(request):
     shares_list = shares.objects.all();
     user_form = UserForm(request.POST)
     return render(request = request, template_name ="user/userPage.html", context = {"user":request.user, "user_form": user_form, "shares_list":shares_list})
+
+def homePage(request):
+    shares_list = shares.objects.all();
+    users_list = users.objects.all();
+    followers_list = followUser.objects.all();
+    return render(request, template_name ="user/home.html", context = {"user":request.user, "shares_list":shares_list, "users_list":users_list,"followers_list":followers_list })
+
+def follow(request, follower_name):
+    username = request.user
+    follower = follower_name
+    db_follow=followUser(username=username,followers=follower)
+    db_follow.save()
+    messages.success(request,('Your profile was successfully updated!'))
+    shares_list = shares.objects.all();
+    users_list = users.objects.all();
+    followers_list = followUser.objects.all();
+    return render(request, template_name ="user/home.html", context = {"user":request.user, "shares_list":shares_list, "users_list":users_list,"followers_list":followers_list })

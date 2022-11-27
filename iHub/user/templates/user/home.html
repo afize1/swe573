@@ -1,0 +1,71 @@
+{% extends "user/index.html" %}
+{% load crispy_forms_tags %}
+{% block start %}
+
+<br><br>
+<div class="row">
+    {% if user.is_authenticated %}
+        {% if not followers_list %}
+        {% else %}
+            {% for f in followers_list %}
+                <div class="container mx-auto">
+                    <div class="row">
+                        {% for p in shares_list %}
+                            {% if user.username == f.username and p.username == f.followers %}
+                                <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
+                                    <div class="h-100">
+                                        <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ p.comment }}</h5>
+                                            <p class="card-text text-muted" style="font-size:12px">{{ p.value }}</p>
+                                            <a href="#" role="button" aria-disabled="false"><span class="glyphicon glyphicon-heart" style="color: red;"></span></a>
+                                        </div>
+                                        </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    <div class="container mx-auto">
+    <div class="row">
+        {% for u in users_list %}
+            {% if u.username != user.username %}
+                {% if not followers_list %}
+                    <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
+                        <div class="h-100">
+                            <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ u.username }}</h5>
+                                <p class="card-text text-muted" style="font-size:12px">{{ u.first_name }}</p>
+                                <a href="{% url "follow" u.username %}"><span class="glyphicon glyphicon-ok"></span> &nbsp;Follow</a>
+                            </div>
+                            </div>
+                    </div>
+                {% else %}
+                    {% for f in followers_list %}
+                        {% if u.username != f.followers %} 
+                            <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
+                                <div class="h-100">
+                                    <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ u.username }}</h5>
+                                        <p class="card-text text-muted" style="font-size:12px">{{ u.first_name }}</p>
+                                        <a href="{% url "follow" u.username %}"><span class="glyphicon glyphicon-ok"></span> &nbsp;Follow</a>
+                                    </div>
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <center><h1>iHub</h1></center>
+    {% endif %}
+</div>
+
+
+{% endblock %}
