@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegisterForm, UserChangePasswordForm, ChangePasswordForm
-from .models import users
+from .forms import UserRegisterForm, UserChangePasswordForm, ChangePasswordForm, UserForm
+from .models import users, shares
 from django.contrib.auth.models import User   ##save details about user such as sequrity question
 from django.contrib.auth.hashers import make_password ##save password encrypted
 
@@ -86,3 +86,15 @@ def setPassword(request, username):
     else:
         form = ChangePasswordForm(request.user)
     return render(request, 'user/setPassword.html', {'form': form,'title':'Change password'})
+
+def userPage(request):
+    if request.method == "POST":
+        user_form = UserForm(request.POST)
+        username = request.user
+        db_shares=shares(username=username,subject=request.POST.get('subject'),label=request.POST.get('label'),private=request.POST.get('private'),type=request.POST.get('type'),related_subjects=request.POST.get('related_subjects'),value=request.POST.get('value'),comment=request.POST.get('comment'))
+        db_shares.save()
+        messages.success(request,('Your profile was successfully updated!'))
+        return redirect ("userPage")
+    shares_list = shares.objects.all();
+    user_form = UserForm(request.POST)
+    return render(request = request, template_name ="user/userPage.html", context = {"user":request.user, "user_form": user_form, "shares_list":shares_list})
