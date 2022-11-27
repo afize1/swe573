@@ -32,5 +32,6 @@ urlpatterns = [
     path('userPage', user_view.userPage, name ='userPage'),
     path('forgotPassword/', user_view.forgotPassword, name ='forgotPassword'),
     path('setPassword/<username>', user_view.setPassword, name ='setPassword'),
- 
+    path('home', user_view.homePage, name ='home'),
+    path('follow/<follower_name>', user_view.follow, name ='follow'),
 ]

@@ -26,3 +26,9 @@ class shares(models.Model):
     comment = models.CharField(max_length=20)
     class Meta:
         db_table='db_shares'
+        
+class followUser(models.Model):
+    username=models.CharField(max_length=20)
+    followers= models.CharField(max_length=20)
+    class Meta:
+        db_table='db_followers'
