@@ -1,11 +1,20 @@
-FROM python:3
+FROM python:3.8
 
-WORKDIR /project
+ENV PYTHONBUFFERED 1
 
-COPY . .
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN pip install --upgrade pip
+
+RUN pip install --upgrade setuptools
+
+RUN pip install ez_setup
 
 RUN pip install -r requirements.txt
 
-EXPOSE 8000
+COPY . /app/
 
-CMD [ "python3", "manage.py", "runserver","127.0.0.1:8000"]
+
+CMD ["python3", "manage.py", "runserver","0.0.0:8000"]

@@ -124,3 +124,5 @@ def follow(request, follower_name):
     users_list = users.objects.all();
     followers_list = followUser.objects.all();
     return render(request, template_name ="user/home.html", context = {"user":request.user, "shares_list":shares_list, "users_list":users_list,"followers_list":followers_list })
+
+

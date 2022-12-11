@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
+from django.db.models.query import RawQuerySet
+
+from user.models import shares
 
 
 DEMO_CHOICES =(
@@ -9,12 +12,6 @@ DEMO_CHOICES =(
     ("3", "What is your favorite song name"),
 )
 
-
-SUBJECT_CHOICES =(
-    ("1", "Yoga"),
-    ("2", "Sport"),
-    ("3", "Film"),
-)
 
 LABEL_CHOICES =(
     ("1", "Yoga_label"),
@@ -60,11 +57,11 @@ class ChangePasswordForm(SetPasswordForm):
         fields = ['new_password1', 'new_password2']
 
 class UserForm(forms.ModelForm):
-    subject= forms.ChoiceField(choices=SUBJECT_CHOICES, required=True)
-    label = forms.ChoiceField(choices=LABEL_CHOICES, required=True)
+    subject= forms.CharField(required=True)
+    label = forms.CharField(required=True)
     private = forms.ChoiceField(choices=PRIVATE_CHOICES, required=True)
     type = forms.ChoiceField(choices=TYPE_CHOICES, required=True)
-    related_subjects = forms.ChoiceField(choices=SUBJECT_CHOICES, required=True)
+    related_subjects = forms.CheckboxSelectMultiple(choices=shares.objects.values_list('id','subject'))
     value=forms.CharField(max_length=20)
     comment = forms.CharField(max_length=20)
     class Meta:

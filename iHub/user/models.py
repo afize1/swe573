@@ -15,6 +15,7 @@ class users(models.Model):
     class Meta:
         db_table='db_users'
 
+
 class shares(models.Model):
     username=models.CharField(max_length=20)
     subject= models.CharField(max_length=20)
