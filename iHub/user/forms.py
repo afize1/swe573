@@ -61,7 +61,7 @@ class UserForm(forms.ModelForm):
     label = forms.CharField(required=True)
     private = forms.ChoiceField(choices=PRIVATE_CHOICES, required=True)
     type = forms.ChoiceField(choices=TYPE_CHOICES, required=True)
-    related_subjects = forms.CheckboxSelectMultiple(choices=shares.objects.values_list('id','subject'))
+    related_subjects = forms.CharField(required=True)
     value=forms.CharField(max_length=20)
     comment = forms.CharField(max_length=20)
     class Meta:

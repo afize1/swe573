@@ -26,7 +26,7 @@ SECRET_KEY = '..key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -110,14 +110,14 @@ DATABASES = {
         'HOST': 'db',  
         'PORT': '3306',  
     } 
-    ##'default': {  
-    ##    'ENGINE': 'django.db.backends.mysql',  
-    ##    'NAME': 'swe_573',  
-    ##    'USER': 'test',  
-    ##    'PASSWORD': 'afize123',  
-    ##    'HOST': 'localhost',  
-    ##    'PORT': '3306',  
-  ## }  
+    #'default': {  
+    #    'ENGINE': 'django.db.backends.mysql',  
+    #    'NAME': 'swe_573',  
+    #    'USER': 'test',  
+    #    'PASSWORD': 'afize123',  
+    #    'HOST': 'localhost',  
+    #    'PORT': '3306',  
+  #}  
 
 } 
 
