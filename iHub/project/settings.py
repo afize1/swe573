@@ -26,7 +26,7 @@ SECRET_KEY = '..key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -102,14 +102,23 @@ REST_FRAMEWORK = {
 
 
 DATABASES = {  
-    'default': {  
+     'default': {  
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'swe_573',  
-        'USER': 'test',  
-        'PASSWORD': 'afize123',  
-        'HOST': 'localhost',  
+        'USER': 'root',  
+        'PASSWORD': '',  
+        'HOST': 'db',  
         'PORT': '3306',  
-    }  
+    } 
+    #'default': {  
+    #    'ENGINE': 'django.db.backends.mysql',  
+    #    'NAME': 'swe_573',  
+    #    'USER': 'test',  
+    #    'PASSWORD': 'afize123',  
+    #    'HOST': 'localhost',  
+    #    'PORT': '3306',  
+  #}  
+
 } 
 
 

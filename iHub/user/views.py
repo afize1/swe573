@@ -95,7 +95,10 @@ def userPage(request):
         db_shares.save()
         messages.success(request,('Your profile was successfully updated!'))
         return redirect ("userPage")
-    shares_list = shares.objects.all()
+    if shares.objects.all() != None:
+        shares_list = shares.objects.all()
+    else:
+        shares_list = None
     user_form = UserForm(request.POST)
     return render(request = request, template_name ="user/userPage.html", context = {"user":request.user, "user_form": user_form, "shares_list":shares_list})
 
@@ -107,8 +110,10 @@ def homePage(request):
         db_shares.save()
         messages.success(request,('Your profile was successfully updated!'))
         return redirect ("home")
-    shares_list = shares.objects.all()
-    shares_list = shares.objects.all()
+    if shares.objects.all() != None:
+        shares_list = shares.objects.all()
+    else:
+        shares_list = None
     users_list = users.objects.all()
     followers_list = followUser.objects.all()
     user_form = UserForm(request.POST)
@@ -120,7 +125,12 @@ def follow(request, follower_name):
     db_follow=followUser(username=username,followers=follower)
     db_follow.save()
     messages.success(request,('Your profile was successfully updated!'))
-    shares_list = shares.objects.all();
-    users_list = users.objects.all();
-    followers_list = followUser.objects.all();
+    if shares.objects.all() != None:
+        shares_list = shares.objects.all()
+    else:
+        shares_list = None
+    users_list = users.objects.all()
+    followers_list = followUser.objects.all()
     return render(request, template_name ="user/home.html", context = {"user":request.user, "shares_list":shares_list, "users_list":users_list,"followers_list":followers_list })
+
+

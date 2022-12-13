@@ -1,0 +1,2 @@
+docker build --tag ihub .
+docker run --publish 8000:8000 ihub
