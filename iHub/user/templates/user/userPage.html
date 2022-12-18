@@ -2,6 +2,22 @@
 {% load crispy_forms_tags %}
 {% block start %}
 
+<style>
+    .card {
+      box-shadow: 0 4px 2px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      width: 100%;
+    }
+    
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    
+    .container {
+      padding: 2px 16px;
+    }
+</style>
+
 <!--User-->
 <br><br>
 
@@ -14,7 +30,11 @@
         <div class="col-sm-12 col-md-12 col-lg-10 pb-4">
             <hr>
             <div class="card p-4">
-                <h4 class="card-title font-weight-bold text-center">Who is, {{ user.first_name|title }} {{ user.last_name|title }} ?</h4>
+                <img src="media/images/{{ image }}" width="320">
+                <h4 class="text-center">Who is, {{ user.first_name|title }} {{ user.last_name|title }} ?</h4>
+                <h4 class="text-center">{{ user_list.occ }}</h4>
+                <h4 class="text-center">{{ user_list.interest }}</h4>
+                <h4 class="text-center">{{ user_list.bio }}</h4>
                 <h5 class="text-right">
                     <button style="background: white; font-size: 2rem; padding:1%; color: black" class="btn btn-primary"> &nbsp;Followers</button>
                 </h5>
@@ -34,7 +54,6 @@
                                 <div class="card-body">
                                         <h5 class="card-title">{{ p.comment }}</h5>
                                     <p class="card-text text-muted" style="font-size:12px">{{ p.value }}</p>
-                                    <a href="{{ p.username }}" class="btn btn-warning">Like</a>
                                 </div>
                                 </div>
                         </div>

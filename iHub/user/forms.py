@@ -65,3 +65,24 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['subject', 'label','private', 'value','comment']
+
+class UpdateUserForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=100,
+                                required=True,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    occupation = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    interest = forms.CharField(max_length=100,
+                               required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+    bio = forms.CharField(max_length=100,
+                          required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+    image = forms.ImageField()
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name','occupation', 'interest','bio','image',]

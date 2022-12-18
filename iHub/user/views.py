@@ -2,10 +2,11 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegisterForm, UserChangePasswordForm, ChangePasswordForm, UserForm
-from .models import followUser, users, shares
+from .forms import UserRegisterForm, UserChangePasswordForm, ChangePasswordForm, UserForm, UpdateUserForm
+from .models import followUser, users, shares, images
 from django.contrib.auth.models import User   ##save details about user such as sequrity question
 from django.contrib.auth.hashers import make_password ##save password encrypted
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -95,12 +96,39 @@ def userPage(request):
         db_shares.save()
         messages.success(request,('Your profile was successfully updated!'))
         return redirect ("userPage")
-    if shares.objects.all() != None:
-        shares_list = shares.objects.all()
-    else:
-        shares_list = None
+    shares_list = shares.objects.all()
     user_form = UserForm(request.POST)
-    return render(request = request, template_name ="user/userPage.html", context = {"user":request.user, "user_form": user_form, "shares_list":shares_list})
+    user_list = users.objects.get(username=request.user)
+    image = users.objects.get(username=request.user).image
+    return render(request = request, template_name ="user/userPage.html", context = {"user":request.user, "user_form": user_form, "shares_list":shares_list, 'image':image, 'user_list':user_list})
+
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, request.FILES, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            first_name=request.POST.get('first_name')
+            last_name=request.POST.get('last_name')
+            occ=request.POST.get('occupation')
+            interest=request.POST.get('interest')
+            bio=request.POST.get('bio')
+            img = user_form.cleaned_data.get("image") 
+            obj = images.objects.create(username=request.user.username, image = img ) 
+            obj.save()
+            user = users.objects.filter(username=request.user.username)
+            user.update(first_name=first_name,last_name=last_name,occupation=occ,interest=interest,bio=bio,image=img)
+            user = User.objects.filter(username=request.user.username)
+            user.update(first_name=first_name,last_name=last_name)
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect ("home")
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+
+    return render(request, 'user/profile.html', {'user_form': user_form})
+
 
 def homePage(request):
     if request.method == "POST":
