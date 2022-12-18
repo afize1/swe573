@@ -78,6 +78,7 @@
             </li>
             <li><a href="{% url "home" %}">Home</a></li>
             <li><a href="{% url "userPage" %}"><span class="glyphicon glyphicon-user"></span> &nbsp;{{user.first_name}} {{ user.last_name }}</a></li>
+            <li><a href="{% url "profile" %}"><span class="glyphicon glyphicon-user"></span> &nbsp;Update Profile</a></li>
             <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout</a></li>
             {% else %}
             <li><a href="{% url "home" %}">Home</a></li>

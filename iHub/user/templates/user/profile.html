@@ -1,0 +1,30 @@
+{% extends "user/index.html" %}
+{% block title %}Profile Page{% endblock title %}
+{% load crispy_forms_tags %}
+{% block start %}
+<div class="form-content">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="small mb-1">First Name:</label>
+                        {{ user_form.first_name }}
+                    <label class="small mb-1">Last Name:</label>
+                        {{ user_form.last_name }}
+                    <label class="small mb-1">Occupation:</label>
+                        {{ user_form.occupation }}
+                    <label class="small mb-1">Interest:</label>
+                        {{ user_form.interest }}
+                    <label class="small mb-1">Bio:</label>
+                        {{ user_form.bio }}
+                    <label class="small mb-1">Image:</label>
+                        {{ user_form.image }}   
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

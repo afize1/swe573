@@ -31,3 +31,22 @@ class followUser(models.Model):
     followers= models.CharField(max_length=20)
     class Meta:
         db_table='db_followers'
+
+class users(models.Model):
+    username= models.CharField(max_length=20)
+    first_name= models.CharField(max_length=20)
+    last_name= models.CharField(max_length=20)
+    security_question = models.CharField(max_length=100)
+    answer = models.CharField(max_length=20)
+    image = models.ImageField(upload_to="images/")
+    occupation= models.CharField(max_length=20)
+    interest= models.CharField(max_length=20)
+    bio= models.CharField(max_length=255)
+    class Meta:
+        db_table='db_users'
+        
+class images(models.Model):
+    username= models.CharField(max_length=20)
+    image = models.ImageField(upload_to="images/")
+    class Meta:
+        db_table='db_images'
