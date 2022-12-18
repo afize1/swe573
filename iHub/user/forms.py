@@ -60,10 +60,8 @@ class UserForm(forms.ModelForm):
     subject= forms.CharField(required=True)
     label = forms.CharField(required=True)
     private = forms.ChoiceField(choices=PRIVATE_CHOICES, required=True)
-    type = forms.ChoiceField(choices=TYPE_CHOICES, required=True)
-    related_subjects = forms.CharField(required=True)
     value=forms.CharField(max_length=20)
     comment = forms.CharField(max_length=20)
     class Meta:
         model = User
-        fields = ['subject', 'label','private', 'type','related_subjects', 'value','comment']
+        fields = ['subject', 'label','private', 'value','comment']

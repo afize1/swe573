@@ -133,4 +133,20 @@ def follow(request, follower_name):
     followers_list = followUser.objects.all()
     return render(request, template_name ="user/home.html", context = {"user":request.user, "shares_list":shares_list, "users_list":users_list,"followers_list":followers_list })
 
+def search(request):
+    results = []
+    if request.method == "GET":
+        query = request.GET.get('search')
+        if query == '':
+            query = 'None'
+        results = User.objects.filter(username__icontains=query)
+    return render(request, 'user/search.html', {'query': query, 'results': results})
 
+def searchShare(request):
+    results = []
+    if request.method == "GET":
+        query = request.GET.get('search_share')
+        if query == '':
+            query = 'None'
+        results = shares.objects.filter(subject__icontains=query)
+    return render(request, 'user/search_share.html', {'query': query, 'results': results})

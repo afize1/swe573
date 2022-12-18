@@ -21,8 +21,6 @@ class shares(models.Model):
     subject= models.CharField(max_length=20)
     label = models.CharField(max_length=20)
     private = models.CharField(max_length=20)
-    type = models.CharField(max_length=20)
-    related_subjects = models.CharField(max_length=20)
     value=models.CharField(max_length=20)
     comment = models.CharField(max_length=20)
     class Meta:

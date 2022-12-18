@@ -102,22 +102,22 @@ REST_FRAMEWORK = {
 
 
 DATABASES = {  
-     'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'swe_573',  
-        'USER': 'root',  
-        'PASSWORD': '',  
-        'HOST': 'db',  
-        'PORT': '3306',  
-    } 
-    #'default': {  
+    # 'default': {  
     #    'ENGINE': 'django.db.backends.mysql',  
     #    'NAME': 'swe_573',  
-    #    'USER': 'test',  
-    #    'PASSWORD': 'afize123',  
-    #    'HOST': 'localhost',  
+    #    'USER': 'root',  
+    #    'PASSWORD': '',  
+    #    'HOST': 'db',  
     #    'PORT': '3306',  
-  #}  
+    #} 
+    'default': {  
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'swe_573',  
+        'USER': 'test',  
+        'PASSWORD': 'afize123',  
+        'HOST': 'localhost',  
+        'PORT': '3306',  
+  }  
 
 } 
 
