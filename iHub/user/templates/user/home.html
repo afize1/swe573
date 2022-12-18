@@ -6,6 +6,16 @@
     <button style="background: blue; font-size: 2rem; padding:0.5%; color: white" type="button" data-toggle="modal" data-target="#profileModal"><span class="glyphicon glyphicon-plus"></span></button>
 </div>
 
+<div class="text-right">
+    <form action="{% url 'search_share' %}" class="form-inline" method="get">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="" class="sr-only">search_share</label>
+          <input name="search_share" type="" class="form-control" id="" placeholder="Search Content in iHub">
+        </div>
+      <button type="submit" class="btn btn-dark btn-lg mb-2">Search</button>
+      </form>
+</div>
+
 <br><br>
 <div class="row">
     {% if user.is_authenticated %}
@@ -32,40 +42,6 @@
                 </div>
             {% endfor %}
         {% endif %}
-    <div class="container mx-auto">
-    <div class="row">
-        {% for u in users_list %}
-            {% if u.username != user.username %}
-                {% if not followers_list %}
-                    <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
-                        <div class="h-100">
-                            <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ u.username }}</h5>
-                                <p class="card-text text-muted" style="font-size:12px">{{ u.first_name }}</p>
-                                <a href="{% url "follow" u.username %}"><span class="glyphicon glyphicon-ok"></span> &nbsp;Follow</a>
-                            </div>
-                            </div>
-                    </div>
-                {% else %}
-                    {% for f in followers_list %}
-                        {% if u.username != f.followers %} 
-                            <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
-                                <div class="h-100">
-                                    <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ u.username }}</h5>
-                                        <p class="card-text text-muted" style="font-size:12px">{{ u.first_name }}</p>
-                                        <a href="{% url "follow" u.username %}"><span class="glyphicon glyphicon-ok"></span> &nbsp;Follow</a>
-                                    </div>
-                                    </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
     {% else %}
     <center><h1>iHub</h1></center>
     {% endif %}
@@ -91,6 +67,6 @@
         </div>
         </div>
     </div>
-    </div>
+</div>
 
 {% endblock %}

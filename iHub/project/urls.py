@@ -34,4 +34,6 @@ urlpatterns = [
     path('setPassword/<username>', user_view.setPassword, name ='setPassword'),
     path('home', user_view.homePage, name ='home'),
     path('follow/<follower_name>', user_view.follow, name ='follow'),
+    path('search', user_view.search, name ='search'),
+    path('search_share', user_view.searchShare, name ='search_share'),
 ]

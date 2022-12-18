@@ -66,12 +66,21 @@
         </div>
         <div class="collapse navbar-collapse" id="mainNavBar">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url "home" %}">Home</a></li>
-
             {% if user.is_authenticated %}
+            <li>
+              <form action="{% url 'search' %}" class="form-inline" method="get">
+                <div class="form-group mx-sm-3 mb-2">
+                  <label for="" class="sr-only">search</label>
+                  <input name="search" type="" class="form-control" id="" placeholder="Username">
+                </div>
+              <button type="submit" class="btn btn-dark btn-lg mb-2">Search</button>
+              </form>
+            </li>
+            <li><a href="{% url "home" %}">Home</a></li>
             <li><a href="{% url "userPage" %}"><span class="glyphicon glyphicon-user"></span> &nbsp;{{user.first_name}} {{ user.last_name }}</a></li>
             <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout</a></li>
             {% else %}
+            <li><a href="{% url "home" %}">Home</a></li>
             <li><a href="{% url "register" %}"><span class="glyphicon glyphicon-user"></span> &nbsp; Sign up</a></li>
             <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Log in</a></li>
             {% endif %}
@@ -94,5 +103,6 @@
     {% endblock %}
   </div>
 </body>
+
 
 </html>
