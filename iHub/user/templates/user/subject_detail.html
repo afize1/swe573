@@ -1,0 +1,41 @@
+{% extends "user/index.html" %}
+{% load crispy_forms_tags %}
+{% block start %}
+
+<style>
+    .card {
+      box-shadow: 0 4px 2px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      width: 100%;
+    }
+    
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    
+    .container {
+      padding: 2px 16px;
+    }
+</style>
+
+<br><br>
+<div class="row">
+    <div class="container mx-auto">
+        <div class="row">
+            {% for s in subject_list %}
+                <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ s.subject }}</h5>
+                            <h5 class="card-title">{{ s.comment }}</h5>
+                            <p class="card-text text-muted" style="font-size:12px">{{ s.value }}</p>
+                            <h5 class="card-title">{{ s.username }}</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

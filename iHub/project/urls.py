@@ -37,4 +37,6 @@ urlpatterns = [
     path('search', user_view.search, name ='search'),
     path('search_share', user_view.searchShare, name ='search_share'),
     path('profile', user_view.profile, name ='profile'),
+    path('post_detail/<post_id>', user_view.postDetail, name ='post_detail'),
+    path('subject_detail/<subject>', user_view.subjectDetail, name ='subject_detail'),
 ]

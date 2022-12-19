@@ -30,9 +30,11 @@
                                     <div class="h-100">
                                         <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
                                         <div class="card-body">
+                                            <a href="{% url "subject_detail" p.subject %}"><span class="glyphicon glyphicon-info"></span> &nbsp;{{ p.subject }}</a>
                                             <h5 class="card-title">{{ p.comment }}</h5>
                                             <p class="card-text text-muted" style="font-size:12px">{{ p.value }}</p>
                                             <a href="#" role="button" aria-disabled="false"><span class="glyphicon glyphicon-heart" style="color: red;"></span></a>
+                                            <a href="{% url "post_detail" p.id %}"><span class="glyphicon glyphicon-info"></span> &nbsp;Detail</a>
                                         </div>
                                         </div>
                                 </div>
