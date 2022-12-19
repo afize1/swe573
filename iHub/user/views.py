@@ -3,10 +3,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserRegisterForm, UserChangePasswordForm, ChangePasswordForm, UserForm, UpdateUserForm
-from .models import followUser, users, shares, images
+from .models import followUser, users, shares, images, postComment
 from django.contrib.auth.models import User   ##save details about user such as sequrity question
 from django.contrib.auth.hashers import make_password ##save password encrypted
 from django.contrib.auth.decorators import login_required
+from .forms import UpdateUserForm, CommentForm
 
 
 def index(request):
@@ -92,7 +93,7 @@ def userPage(request):
     if request.method == "POST":
         user_form = UserForm(request.POST)
         username = request.user
-        db_shares=shares(username=username,subject=request.POST.get('subject'),label=request.POST.get('label'),private=request.POST.get('private'),type=request.POST.get('type'),related_subjects=request.POST.get('related_subjects'),value=request.POST.get('value'),comment=request.POST.get('comment'))
+        db_shares=shares(username=username,subject=request.POST.get('subject'),label=request.POST.get('label'),private=request.POST.get('private'),value=request.POST.get('value'),comment=request.POST.get('comment'))
         db_shares.save()
         messages.success(request,('Your profile was successfully updated!'))
         return redirect ("userPage")
@@ -134,7 +135,7 @@ def homePage(request):
     if request.method == "POST":
         user_form = UserForm(request.POST)
         username = request.user
-        db_shares=shares(username=username,subject=request.POST.get('subject'),label=request.POST.get('label'),private=request.POST.get('private'),type=request.POST.get('type'),related_subjects=request.POST.get('related_subjects'),value=request.POST.get('value'),comment=request.POST.get('comment'))
+        db_shares=shares(username=username,subject=request.POST.get('subject'),label=request.POST.get('label'),private=request.POST.get('private'),value=request.POST.get('value'),comment=request.POST.get('comment'))
         db_shares.save()
         messages.success(request,('Your profile was successfully updated!'))
         return redirect ("home")
@@ -178,3 +179,24 @@ def searchShare(request):
             query = 'None'
         results = shares.objects.filter(subject__icontains=query)
     return render(request, 'user/search_share.html', {'query': query, 'results': results})
+
+def postDetail(request, post_id):
+    post = shares.objects.get(id=post_id)
+    if postComment.objects.all is None:
+        comment_list=None
+    else:
+        comment_list=postComment.objects.filter(post_id=post_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment=request.POST.get('comment')
+            post_comment=postComment(post_id=post_id, username = request.user.username, comment=comment)
+            post_comment.save();
+            return redirect('home')
+    else:
+        form = CommentForm()
+    return render(request, 'user/post_detail.html', { 'form':form, 'share': post, 'comment_list':comment_list})
+
+def subjectDetail(request, subject):
+    subject_list = shares.objects.filter(subject__icontains=subject)
+    return render(request, 'user/subject_detail.html', { 'subject_list':subject_list})

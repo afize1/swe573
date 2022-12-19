@@ -12,19 +12,6 @@ DEMO_CHOICES =(
     ("3", "What is your favorite song name"),
 )
 
-
-LABEL_CHOICES =(
-    ("1", "Yoga_label"),
-    ("2", "Sport_label"),
-    ("3", "Film_label"),
-)
-
-TYPE_CHOICES =(
-    ("1", "URL"),
-    ("2", "Picture"),
-    ("3", "Pdf"),
-)
-
 PRIVATE_CHOICES =(
     ("1", "Private"),
     ("2", "Public"),
@@ -60,8 +47,8 @@ class UserForm(forms.ModelForm):
     subject= forms.CharField(required=True)
     label = forms.CharField(required=True)
     private = forms.ChoiceField(choices=PRIVATE_CHOICES, required=True)
-    value=forms.CharField(max_length=20)
-    comment = forms.CharField(max_length=20)
+    value=forms.CharField(max_length=255)
+    comment = forms.CharField(max_length=255, required=False)
     class Meta:
         model = User
         fields = ['subject', 'label','private', 'value','comment']
@@ -86,3 +73,9 @@ class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name','occupation', 'interest','bio','image',]
+
+class CommentForm(forms.ModelForm):
+    comment = forms.CharField(max_length=255)
+    class Meta:
+        model = User
+        fields = ['comment']

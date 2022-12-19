@@ -8,21 +8,14 @@ DEMO_CHOICES =(
     ("3", "What is your favorite song name"),
 )
 
-class users(models.Model):
-    username= models.CharField(max_length=20)
-    security_question = models.CharField(max_length=100)
-    answer = models.CharField(max_length=20)
-    class Meta:
-        db_table='db_users'
-
 
 class shares(models.Model):
     username=models.CharField(max_length=20)
-    subject= models.CharField(max_length=20)
-    label = models.CharField(max_length=20)
+    subject= models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
     private = models.CharField(max_length=20)
-    value=models.CharField(max_length=20)
-    comment = models.CharField(max_length=20)
+    value=models.CharField(max_length=255)
+    comment = models.CharField(max_length=255)
     class Meta:
         db_table='db_shares'
         
@@ -50,3 +43,10 @@ class images(models.Model):
     image = models.ImageField(upload_to="images/")
     class Meta:
         db_table='db_images'
+
+class postComment(models.Model):
+    post_id=models.IntegerField();
+    username=models.CharField(max_length=20)
+    comment= models.CharField(max_length=255)
+    class Meta:
+        db_table='db_post_comment'
