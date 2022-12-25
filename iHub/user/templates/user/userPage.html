@@ -1,4 +1,4 @@
-{% extends "user/index.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block start %}
 
@@ -18,74 +18,161 @@
     }
 </style>
 
-<!--User-->
-<br><br>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content="login page"/>
+  <meta name="author" content="afize"/>
+  <!-- loader-->
+  <link href="{% static "assets/css/pace.min.css"%}" rel="stylesheet"/>
+  <script src="{% static "assets/js/pace.min.js"%}"></script>
+  <!--favicon-->
+  <link rel="icon" href="{% static "assets/images/favicon.ico"%}" type="image/x-icon">
+  <!-- Bootstrap core CSS-->
+  <link href="{% static "assets/css/bootstrap.min.css"%}" rel="stylesheet"/>
+  <!-- animate CSS-->
+  <link href="{% static "assets/css/animate.css"%}" rel="stylesheet" type="text/css"/>
+  <!-- Icons CSS-->
+  <link href="{% static "assets/css/icons.css"%}" rel="stylesheet" type="text/css"/>
+  <!-- Custom Style-->
+  <link href="{% static "assets/css/app-style.css"%}" rel="stylesheet"/>
+</head>
 
-<div class="text-right">
-    <button style="background: blue; font-size: 2rem; padding:0.5%; color: white" type="button" data-toggle="modal" data-target="#profileModal"><span class="glyphicon glyphicon-plus"></span></button>
-</div>
-
-<div class="container mx-auto">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-10 pb-4">
-            <hr>
-            <div class="card p-4">
-                <img src="media/images/{{ image }}" width="320">
-                <h4 class="text-center">Who is, {{ user.first_name|title }} {{ user.last_name|title }} ?</h4>
-                <h4 class="text-center">{{ user_list.occ }}</h4>
-                <h4 class="text-center">{{ user_list.interest }}</h4>
-                <h4 class="text-center">{{ user_list.bio }}</h4>
-                <h5 class="text-right">
-                    <button style="background: white; font-size: 2rem; padding:1%; color: black" class="btn btn-primary"> &nbsp;Followers</button>
-                </h5>
-                <h5 class="text-right">
-                    <button style="background: white; font-size: 2rem; padding:1%; color: black" class="btn btn-primary"> &nbsp;Following</button>
-                </h5>
+<body class="bg-theme bg-theme1">
+    <!-- Start wrapper-->
+    <div id="wrapper">
+        <!--Start topbar header-->
+        <header class="topbar-nav">
+            <nav class="navbar navbar-expand fixed-top">
+                <ul class="navbar-nav mr-auto align-items-center">
+                    <li class="nav-item">
+                        <form class="form-inline" action="{% url 'search' %}" method="get">
+                            <label for="" class="sr-only">search</label>
+                            <input name="search" type="" class="form-control" id="" placeholder="Username">
+                            <button type="submit" class="btn btn-info btn-lg mb-1">Search</button>
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline" action="{% url 'search_share' %}" method="get">
+                            <label for="" class="sr-only">search_share</label>
+                            <input name="search_share" type="" class="form-control" id="" placeholder="Post">
+                            <button type="submit" class="btn btn-info btn-lg mb-1">Search</button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav align-items-center right-nav-link">
+                    <li class="nav-item"><i class="mr-4"><a href="{% url "post" %}">Post</a></i></li>
+                    <li class="nav-item"><i class="mr-4"><a href="{% url "home" %}">Home</a></i></li>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+                            <span class="user-profile"><img src="{% static "assets/images/user_avatar.jpg"%}" class="img-circle" alt="user avatar"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-item user-details">
+                                <a href="javaScript:void();">
+                                    <div class="media">
+                                        <div class="avatar"><img class="align-self-start mr-3" src="{% static "assets/images/User-avatar.svg.png"%}" alt="user avatar"></div>
+                                        <div class="media-body">
+                                            {% if user.is_authenticated %}
+                                                <h6 class="mt-2 user-title">{{user.first_name}} {{user.last_name}}</h6>
+                                                <p class="user-subtitle">{{user.email}}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item"><i class="icon-wallet mr-2"></i><a href="{% url "userPage" %}">Account</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item"><i class="icon-settings mr-2"></i><a href="{% url "profile" %}">Setting</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item"><i class="icon-power mr-2"></i><a href="{% url "logout" %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="clearfix"></div>
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row mt-3">
+                        <div class="col-lg-4">
+                            <div class="card profile-card-2">
+                                <div class="card-body pt-5">
+                                    <center>
+                                        <img src="media/images/{{ image }}" width="320">
+                                        <h4 class="text-center">Who is, {{ user.first_name|title }} {{ user.last_name|title }} ?</h5>
+                                        <h5 class="text-center">{{ user_list.occ }}</h5>
+                                        <h5 class="text-center">{{ user_list.interest }}</h5>
+                                        <h5 class="text-center">{{ user_list.bio }}</h5>
+                                        <h5 class="text-center">
+                                            <a href="{% url "follower_list" user.username %}"><button class="btn btn-primary"> &nbsp;Followers {{user_list.followers}}</button>
+                                        </h5>
+                                        <h5 class="text-center">
+                                            <a href="{% url "following_list" user.username %}"><button class="btn btn-primary"> &nbsp;Following {{user_list.followings}}</button>
+                                        </h5>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
+                                        <li class="nav-item">
+                                            <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content p-3">
+                                        <div class="tab-pane active" id="profile">
+                                            <div class="col-sm-12 col-md-12 col-lg-10 pb-4">
+                                                <div class="row">
+                                                    {% for p in shares_list %}
+                                                        {% if p.username == user.username %} 
+                                                            <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
+                                                                <div class="card">
+                                                                    <div class="card-body" onclick='location.href="{% url "post_detail" p.id %}";'
+                                                                        <a href="{% url "subject_detail" p.subject %}"><span class="glyphicon glyphicon-info"></span> &nbsp;#{{ p.subject }}</a>
+                                                                        <h5 class="card-title">{{ p.content }}</h5>
+                                                                        <h5 class="card-title">{{ p.description }}</h5>
+                                                                        <h5 class="card-title">{{ p.label }}</h5>
+                                                                        <h5 class="card-title">{{ p.username }}</h5>
+                                                                        {% if p.private == "2" %}
+                                                                            <p class="card text card-text-muted">Private</p>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-10 pb-4">
-            <hr>
-            <div class="row">
-                {% for p in shares_list %}
-                    {% if p.username == user.username %} 
-                        <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
-                            <div class="h-100">
-                                <img src="/" alt="Smiley face" width="42" height="42" style="vertical-align:bottom">
-                                <div class="card-body">
-                                        <h5 class="card-title">{{ p.comment }}</h5>
-                                    <p class="card-text text-muted" style="font-size:12px">{{ p.value }}</p>
-                                </div>
-                                </div>
-                        </div>
-                    {% endif %}
-              {% endfor %}
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-9 pb-4">
-        </div> 
     </div>
-</div>
-
-<div class="modal" tabindex="-1" id="profileModal" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">i-Hub</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form method="post">
-                {% csrf_token %}
-                {{ user_form|crispy }}
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
-    </div>
-    </div>
-
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static "assets/js/jquery.min.js"%}"></script>
+    <script src="{% static "assets/js/popper.min.js"%}"></script>
+    <script src="{% static "assets/js/bootstrap.min.js"%}"></script>
+    
+    <!-- simplebar js -->
+    <script src="{% static "assets/plugins/simplebar/js/simplebar.js"%}"></script>
+    <!-- sidebar-menu js -->
+    <script src="{% static "assets/js/sidebar-menu.js"%}"></script>
+    
+    <!-- Custom scripts -->
+    <script src="{% static "assets/js/app-script.js"%}"></script>
+	
+</body>
+</html>
 
 {% endblock %}
