@@ -10,3 +10,4 @@ mysqlclient>=2.0
 pymysql
 djangorestframework
 mysql-connector-python==8.0.26
+Pillow
