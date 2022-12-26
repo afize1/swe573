@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 #save security question and answer for each user
 
@@ -37,6 +38,7 @@ class shares(models.Model):
     type = models.CharField(max_length=20)
     content=models.CharField(max_length=255)
     description = models.CharField(max_length=255)
+    date=models.DateField(default=timezone.now)
     class Meta:
         db_table='db_shares'
         

@@ -14,7 +14,10 @@ RUN pip install --upgrade setuptools
 
 RUN pip install ez_setup
 
+RUN python -m pip install Pillow
+
 RUN pip install -r requirements.txt
+
 
 ##COPY . /app
 

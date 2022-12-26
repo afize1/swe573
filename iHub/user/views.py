@@ -8,6 +8,7 @@ from django.contrib.auth.models import User   ##save details about user such as 
 from django.contrib.auth.hashers import make_password ##save password encrypted
 from django.contrib.auth.decorators import login_required
 from .forms import UpdateUserForm, CommentForm
+import datetime
 
 
 def index(request):
@@ -116,7 +117,10 @@ def follow(request, follower_name):
     db_follow.save()
     user = users.objects.get(username=request.user.username)
     user.followings = 1 + user.followings
+    user_following=users.objects.get(username=follower_name)
+    user_following.followers=1+user_following.followers
     user.save()
+    user_following.save()
     shares_list = shares.objects.all()
     users_list = users.objects.all()
     followers_list = followUser.objects.all()
@@ -129,10 +133,13 @@ def unfollow(request, follower_name):
     followUser.objects.filter(id=delete_record.id).delete()
     user = users.objects.get(username=request.user.username)
     user.followings = user.followings - 1
+    user_following=users.objects.get(username=follower_name)
+    user_following.followers=user_following.followers-1
     user.save()
-    shares_list = shares.objects.all();
-    users_list = users.objects.all();
-    followers_list = followUser.objects.all();
+    user_following.save()
+    shares_list = shares.objects.all()
+    users_list = users.objects.all()
+    followers_list = followUser.objects.all()
     return render(request, template_name ="user/home.html", context = {"user":request.user, "shares_list":shares_list, "users_list":users_list,"followers_list":followers_list })
 
 @login_required
@@ -214,10 +221,9 @@ def followerDetail(request, user):
 
 def post(request):
     if request.method == "POST":
-        print("post")
         user_form = UserForm(request.POST)
         username = request.user
-        db_shares=shares(username=username,subject=request.POST.get('subject'),label=request.POST.get('label'),private=request.POST.get('private'),type=1,content=request.POST.get('content'),description=request.POST.get('description'))
+        db_shares=shares(username=username,subject=request.POST.get('subject'),label=request.POST.get('label'),private=request.POST.get('private'),type=request.POST.get('type'),content=request.POST.get('content'),description=request.POST.get('description'))
         db_shares.save()
         return redirect ("home")
     else:
