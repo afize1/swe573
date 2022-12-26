@@ -20,6 +20,8 @@ from django.contrib import admin
 from django.urls import path, include
 from user import views as user_view
 from django.contrib.auth import views as auth
+from django.conf import settings
+from django.conf.urls.static import static
  
 urlpatterns = [
  
@@ -34,9 +36,13 @@ urlpatterns = [
     path('setPassword/<username>', user_view.setPassword, name ='setPassword'),
     path('home', user_view.homePage, name ='home'),
     path('follow/<follower_name>', user_view.follow, name ='follow'),
+    path('profile', user_view.profile, name ='profile'),
     path('search', user_view.search, name ='search'),
     path('search_share', user_view.searchShare, name ='search_share'),
-    path('profile', user_view.profile, name ='profile'),
     path('post_detail/<post_id>', user_view.postDetail, name ='post_detail'),
     path('subject_detail/<subject>', user_view.subjectDetail, name ='subject_detail'),
-]
+    path('following_list/<user>', user_view.followingDetail, name ='following_list'),
+    path('follower_list/<user>', user_view.followerDetail, name ='follower_list'),
+    path('post', user_view.post, name ='post'),
+    path('unfollow/<follower_name>', user_view.unfollow, name ='unfollow'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
