@@ -11,7 +11,7 @@ services:
     command: python manage.py runserver 0.0.0.0:8000  # run the command to start the server
     depends_on:
       db:
-        condition: service_healthy
+        command: 'dockerize -wait=tcp://db:3306'
   db:
     image: mysql:latest  # use the latest postgres image
     volumes:
