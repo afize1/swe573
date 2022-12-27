@@ -9,7 +9,7 @@ services:
     image: app:latest  # tag the image as app:latest
     container_name: ihub  # name the container as swe573_term_project
     command: >
-      sh -c "sleep 60 &&
+      sh -c "sleep 30 &&
              python manage.py makemigrations &&
              python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
@@ -25,7 +25,7 @@ services:
       MYSQL_HOST: localhost
       MYSQL_PORT: 3306  # cannot change this port to other number
       MYSQL_ROOT_HOST: '%'
-      MYSQL_USER : root
+      MYSQL_ROOT_USER : root
     ports:
       - "3306:3306"  # map port 8000 on host to port 8000 in container
     container_name: mysql_db
