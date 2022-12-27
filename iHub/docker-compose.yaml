@@ -10,7 +10,8 @@ services:
     container_name: ihub  # name the container as swe573_term_project
     command: python manage.py runserver 0.0.0.0:8000  # run the command to start the server
     depends_on:
-      - db  # start the db
+      db:
+        condition: service_healthy
   db:
     image: mysql:latest  # use the latest postgres image
     volumes:
