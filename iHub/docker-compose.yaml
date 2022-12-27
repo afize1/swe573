@@ -13,8 +13,8 @@ services:
       - db
   db:
     image: mysql:latest  # use the latest postgres image
-    command: sh -c "
-          sleep 60
+    command: >
+      sh -c "python manage.py wait_for_db
     volumes:
       - ./data/mysql/db:/var/lib/mysql
     environment:
